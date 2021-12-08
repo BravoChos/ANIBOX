@@ -1,14 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+import RootStack from './src/screens/RootStack';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <View>
-        <Text>AniBox</Text>
-      </View>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
