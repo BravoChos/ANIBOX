@@ -5,7 +5,7 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import {RootStackParamList} from '../types';
 
-const HomeScreen = () => {
+const SampleScreen = () => {
   const navigation = useNavigation<RootStackParamList>();
   return (
     <SafeAreaView style={{borderWidth: 1}}>
@@ -14,4 +14,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default SampleScreen;
