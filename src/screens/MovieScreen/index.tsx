@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   Animated,
   Dimensions,
@@ -102,8 +102,7 @@ export const getMovies = async () => {
 
 const MovieScreen = () => {
   const navigation = useNavigation<RootStackParamList>();
-  console.log(API_KEY, 1);
-
+  const scrollX = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     // axios.get(API_URL).then(r => {
     //   console.log(r);
@@ -141,10 +140,10 @@ const MovieScreen = () => {
         contentContainerStyle={{alignItems: 'center'}}
         snapToInterval={ITEM_SIZE}
         snapToAlignment="start"
-        // onScroll={Animated.event(
-        //   [{nativeEvent: {contentOffset: {x: scrollX}}}],
-        //   {useNativeDriver: false},
-        // )}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {x: scrollX}}}],
+          {useNativeDriver: false},
+        )}
         scrollEventThrottle={16}
         renderItem={({item, index}) => {
           console.log(item?.key);
@@ -158,11 +157,11 @@ const MovieScreen = () => {
             index * ITEM_SIZE,
           ];
 
-          // const translateY = scrollX.interpolate({
-          //   inputRange,
-          //   outputRange: [100, 50, 100],
-          //   extrapolate: 'clamp',
-          // });
+          const translateY = scrollX.interpolate({
+            inputRange,
+            outputRange: [40, 0, 40],
+            extrapolate: 'clamp',
+          });
 
           return (
             <View style={{width: ITEM_SIZE}}>
@@ -171,7 +170,7 @@ const MovieScreen = () => {
                   marginHorizontal: SPACING,
                   padding: SPACING * 2,
                   alignItems: 'center',
-                  // transform: [{translateY}],
+                  transform: [{translateY}],
                   backgroundColor: 'white',
                   borderRadius: 34,
                 }}>
