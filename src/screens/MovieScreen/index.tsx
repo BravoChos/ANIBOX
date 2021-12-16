@@ -48,7 +48,7 @@ const getBackdropPath = (path: String) =>
   `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
 
 const SPACING = 10;
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
+const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.722 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const BACKDROP_HEIGHT = height * 0.65;
 
@@ -116,9 +116,10 @@ const MovieScreen = () => {
   const [movies, setMovies] = React.useState([]);
 
   useEffect(() => {
-    getMovies().then(r => {
-      if (r?.length > 0) {
-        setMovies(r);
+    getMovies().then(movies => {
+      if (movies?.length > 0) {
+        // setMovies(movies);
+        setMovies([{key: 'empty-left'}, ...movies, {key: 'empty-right'}]);
       }
     });
   }, []);
@@ -155,6 +156,7 @@ const MovieScreen = () => {
             (index - 2) * ITEM_SIZE,
             (index - 1) * ITEM_SIZE,
             index * ITEM_SIZE,
+            // (index + 1) * ITEM_SIZE,
           ];
 
           const translateY = scrollX.interpolate({
