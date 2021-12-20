@@ -49,7 +49,7 @@ const getBackdropPath = (path: String) =>
   `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
 
 const SPACING = 10;
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.722 : width * 0.74;
+const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const BACKDROP_HEIGHT = height * 0.65;
 
@@ -69,24 +69,30 @@ const Backdrop = ({movies, scrollX}) => {
     <View style={{height: BACKDROP_HEIGHT, width, position: 'absolute'}}>
       <FlatList
         data={movies.reverse()}
+        // data={movies}
         keyExtractor={item => item.key + '-backdrop'}
-        removeClippedSubviews={false}
+        // removeClippedSubviews={false}
         contentContainerStyle={{width, height: BACKDROP_HEIGHT}}
         renderItem={({item, index}) => {
           if (!item.backdrop) {
             return null;
           }
           const translateX = scrollX.interpolate({
+            // inputRange: [index * ITEM_SIZE, (index + 1) * ITEM_SIZE],
             inputRange: [(index - 2) * ITEM_SIZE, (index - 1) * ITEM_SIZE],
+            // inputRange: [(index - 3) * ITEM_SIZE, (index - 2) * ITEM_SIZE],
             outputRange: [0, width],
-            // extrapolate:'clamp'
+            // outputRange: [-width, 0],
+            extrapolate: 'clamp',
           });
           return (
             <Animated.View
               removeClippedSubviews={false}
               style={{
                 position: 'absolute',
+
                 width: translateX,
+
                 height,
                 overflow: 'hidden',
               }}>
@@ -95,6 +101,7 @@ const Backdrop = ({movies, scrollX}) => {
                 style={{
                   width,
                   height: BACKDROP_HEIGHT,
+
                   position: 'absolute',
                 }}
               />
@@ -214,7 +221,7 @@ const MovieScreen = () => {
 
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange: [40, 0, 40],
+            outputRange: [120, 80, 120],
             extrapolate: 'clamp',
           });
 
