@@ -2,15 +2,13 @@ import React, {useEffect, useRef} from 'react';
 import {
   Animated,
   Dimensions,
-  FlatList,
   Image,
   Platform,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -19,6 +17,7 @@ import {API_KEY} from '../../api/config';
 import {RootStackParamList} from '../types';
 import Genres from '../../components/movie/Genres';
 import Rating from '../../components/movie/Rating';
+import Backdrop from '../../components/movie/Backdrop';
 
 const genres = {
   12: 'Adventure',
@@ -51,7 +50,6 @@ const getBackdropPath = (path: String) =>
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
-const BACKDROP_HEIGHT = height * 0.65;
 
 interface movie {
   id: Number;
@@ -64,76 +62,16 @@ interface movie {
   genre_ids: [Number];
 }
 
-const Backdrop = ({movies, scrollX}) => {
-  return (
-    <View style={{height: BACKDROP_HEIGHT, width, position: 'absolute'}}>
-      <FlatList
-        data={movies.reverse()}
-        // data={movies}
-        keyExtractor={item => item.key + '-backdrop'}
-        // removeClippedSubviews={false}
-        contentContainerStyle={{width, height: BACKDROP_HEIGHT}}
-        renderItem={({item, index}) => {
-          if (!item.backdrop) {
-            return null;
-          }
-          const translateX = scrollX.interpolate({
-            // inputRange: [index * ITEM_SIZE, (index + 1) * ITEM_SIZE],
-            inputRange: [(index - 2) * ITEM_SIZE, (index - 1) * ITEM_SIZE],
-            // inputRange: [(index - 3) * ITEM_SIZE, (index - 2) * ITEM_SIZE],
-            outputRange: [0, width],
-            // outputRange: [-width, 0],
-            extrapolate: 'clamp',
-          });
-          return (
-            <Animated.View
-              removeClippedSubviews={false}
-              style={{
-                position: 'absolute',
-
-                width: translateX,
-
-                height,
-                overflow: 'hidden',
-              }}>
-              <Image
-                source={{uri: item.backdrop}}
-                style={{
-                  width,
-                  height: BACKDROP_HEIGHT,
-
-                  position: 'absolute',
-                }}
-              />
-            </Animated.View>
-          );
-        }}
-      />
-      <LinearGradient
-        colors={['rgba(0, 0, 0, 0)', 'white']}
-        style={{
-          height: BACKDROP_HEIGHT,
-          width,
-          position: 'absolute',
-          bottom: 0,
-        }}
-      />
-    </View>
-  );
-};
-
 export const getMovies = async () => {
   const {data, status, statusText} = await axios.get(API_URL);
-  // (API_URL).then(x => x.json());
+
   if (!data?.results)
     return {
       status,
       error: statusText,
       data: null,
     };
-  //
-  // console.log(results);
-  // return null;
+
   const movies = data.results.map(
     ({
       id,
@@ -160,13 +98,9 @@ export const getMovies = async () => {
 };
 
 const MovieScreen = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  // const navigation = useNavigation<RootStackParamList>();
   const scrollX = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    // axios.get(API_URL).then(r => {
-    //   console.log(r);
-    //   console.log('object');
-    // });
     getMovies().then(r => {
       console.log(r);
     });
@@ -177,18 +111,13 @@ const MovieScreen = () => {
   useEffect(() => {
     getMovies().then(movies => {
       if (movies?.length > 0) {
-        // setMovies(movies);
         setMovies([{key: 'empty-left'}, ...movies, {key: 'empty-right'}]);
       }
     });
   }, []);
 
   return (
-    // <SafeAreaView style={{flex: 1}}>
-    //   <Text>MovieScreen</Text>
-    // </SafeAreaView>
     <View style={styles.container}>
-      {/* <StatusBar hidden /> */}
       <Backdrop movies={movies} scrollX={scrollX} />
       <Animated.FlatList
         showsHorizontalScrollIndicator={false}
@@ -207,7 +136,6 @@ const MovieScreen = () => {
         )}
         scrollEventThrottle={16}
         renderItem={({item, index}) => {
-          console.log(item?.key);
           if (!item.poster) {
             return <View style={{width: EMPTY_ITEM_SIZE}} />;
           }
