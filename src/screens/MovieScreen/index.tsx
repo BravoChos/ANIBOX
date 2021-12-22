@@ -1,18 +1,20 @@
 import React, {useEffect, useRef} from 'react';
 import {
   Animated,
-  Dimensions,
   Image,
   Platform,
   StyleSheet,
+  SafeAreaView,
+  ScrollView,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
-
 import axios from 'axios';
-import LinearGradient from 'react-native-linear-gradient';
+// import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 
-const {width, height} = Dimensions.get('window');
+import {height, width} from '../../styles';
 import {API_KEY} from '../../api/config';
 import {RootStackParamList} from '../types';
 import Genres from '../../components/movie/Genres';
@@ -98,7 +100,7 @@ export const getMovies = async () => {
 };
 
 const MovieScreen = () => {
-  // const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<RootStackParamList>();
   const scrollX = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     getMovies().then(r => {
@@ -117,13 +119,16 @@ const MovieScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      nestedScrollEnabled={true}
+      bounces={false}>
       <Backdrop movies={movies} scrollX={scrollX} />
-      <Animated.FlatList
+      <Animated.ScrollView
         showsHorizontalScrollIndicator={false}
-        data={movies}
-        keyExtractor={item => item.key}
-        horizontal
+        // data={movies}
+        // keyExtractor={item => item.key}
+        horizontal={true}
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
         renderToHardwareTextureAndroid
@@ -134,51 +139,113 @@ const MovieScreen = () => {
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        scrollEventThrottle={16}
-        renderItem={({item, index}) => {
-          if (!item.poster) {
-            return <View style={{width: EMPTY_ITEM_SIZE}} />;
-          }
-
-          const inputRange = [
-            (index - 2) * ITEM_SIZE,
-            (index - 1) * ITEM_SIZE,
-            index * ITEM_SIZE,
-            // (index + 1) * ITEM_SIZE,
-          ];
-
-          const translateY = scrollX.interpolate({
-            inputRange,
-            outputRange: [120, 80, 120],
-            extrapolate: 'clamp',
-          });
-
-          return (
-            <View style={{width: ITEM_SIZE}}>
-              <Animated.View
+        style={{height: 660}}
+        scrollEventThrottle={16}>
+        <>
+          {/* <SafeAreaView
+            style={{
+              position: 'absolute',
+              zIndex: 2,
+              // width,
+              // backgroundColor: 'green',
+              borderWidth: 1,
+            }}>
+            <View
+              style={{
+                // position: 'absolute',
+                zIndex: 2,
+                paddingTop: 8,
+                paddingHorizontal: 18,
+                // flex: 1,
+                width: '100%',
+                alignItems: 'flex-start',
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  console.log('onPress');
+                  navigation.goBack();
+                }}
                 style={{
-                  marginHorizontal: SPACING,
-                  padding: SPACING * 2,
-                  alignItems: 'center',
-                  transform: [{translateY}],
+                  height: 30,
+
+                  borderWidth: 1,
+                  borderRadius: 4,
+
                   backgroundColor: 'white',
-                  borderRadius: 34,
+                  // width,
+                  // alignItems: 'center',
+                  justifyContent: 'center',
                 }}>
-                <Image source={{uri: item.poster}} style={styles.posterImage} />
-                <Text style={{fontSize: 24}} numberOfLines={1}>
-                  {item.title}
+                <Text
+                  style={{
+                    borderRadius: 4,
+                    padding: 4,
+                    // width: '10%',
+                    color: '#277ffd',
+                  }}>
+                  Previous
                 </Text>
-                <Rating rating={item.rating} />
-                <Genres genres={item.genres} />
-                <Text style={{fontSize: 12}} numberOfLines={3}>
-                  {item.description}
-                </Text>
-              </Animated.View>
+              </TouchableOpacity>
             </View>
-          );
-        }}
-      />
-    </View>
+          </SafeAreaView> */}
+
+          {movies.map((item, index) => {
+            if (!item.poster) {
+              return <View style={{width: EMPTY_ITEM_SIZE}} />;
+            }
+
+            const inputRange = [
+              (index - 2) * ITEM_SIZE,
+              (index - 1) * ITEM_SIZE,
+              index * ITEM_SIZE,
+              // (index + 1) * ITEM_SIZE,
+            ];
+
+            const translateY = scrollX.interpolate({
+              inputRange,
+              outputRange: [140, 100, 140],
+              extrapolate: 'clamp',
+            });
+
+            return (
+              <View style={{width: ITEM_SIZE, height: '100%'}}>
+                <Animated.View
+                  style={{
+                    marginHorizontal: SPACING,
+                    padding: SPACING * 2,
+                    alignItems: 'center',
+                    transform: [{translateY}],
+                    backgroundColor: 'white',
+                    borderRadius: 34,
+                  }}>
+                  <Image
+                    source={{uri: item.poster}}
+                    style={styles.posterImage}
+                  />
+                  <Text style={{fontSize: 24}} numberOfLines={1}>
+                    {item.title}
+                  </Text>
+                  <Rating rating={item.rating} />
+                  <Genres genres={item.genres} />
+                  <Text style={{fontSize: 12}} numberOfLines={3}>
+                    {item.description}
+                  </Text>
+                </Animated.View>
+              </View>
+            );
+
+            // return (
+            //   <View
+            //     style={{
+            //       width: 100,
+            //       height: 100,
+            //       backgroundColor: 'red',
+            //     }}></View>
+            // );
+          })}
+        </>
+      </Animated.ScrollView>
+    </ScrollView>
   );
 };
 

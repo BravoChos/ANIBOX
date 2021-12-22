@@ -9,10 +9,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const RootStack = () => {
   return (
     <Stack.Navigator
-    // screenOptions={{
-    //   headerShown: false,
-    // }}
-    >
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen
         name="Dashboard"
         component={DashboardScreen}
