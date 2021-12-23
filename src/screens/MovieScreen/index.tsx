@@ -4,17 +4,16 @@ import {
   Image,
   Platform,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Text,
   View,
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
-// import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
-import {height, width} from '../../styles';
+import {width, height} from '../../styles';
 import {API_KEY} from '../../api/config';
 import {RootStackParamList} from '../types';
 import Genres from '../../components/movie/Genres';
@@ -123,6 +122,54 @@ const MovieScreen = () => {
       style={styles.container}
       nestedScrollEnabled={true}
       bounces={false}>
+      <SafeAreaView
+        style={{
+          position: 'absolute',
+          zIndex: 2,
+          // width,
+          // backgroundColor: 'green',
+          // borderWidth: 1,
+        }}>
+        <View
+          style={{
+            // position: 'absolute',
+            zIndex: 2,
+            paddingTop: 8,
+            paddingHorizontal: 18,
+            // flex: 1,
+            width: '100%',
+            alignItems: 'flex-start',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('onPress');
+              navigation.goBack();
+            }}
+            style={{
+              height: 30,
+
+              // borderWidth: 1,
+              borderRadius: 4,
+
+              // backgroundColor: 'white',
+              // width,
+              // alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                borderRadius: 4,
+                padding: 4,
+                // width: '10%',
+                // color: '#277ffd',
+                color: 'white',
+                fontWeight: 'bold',
+              }}>
+              Previous
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
       <Backdrop movies={movies} scrollX={scrollX} />
       <Animated.ScrollView
         showsHorizontalScrollIndicator={false}
@@ -139,56 +186,9 @@ const MovieScreen = () => {
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        style={{height: 660}}
+        style={{height}}
         scrollEventThrottle={16}>
         <>
-          {/* <SafeAreaView
-            style={{
-              position: 'absolute',
-              zIndex: 2,
-              // width,
-              // backgroundColor: 'green',
-              borderWidth: 1,
-            }}>
-            <View
-              style={{
-                // position: 'absolute',
-                zIndex: 2,
-                paddingTop: 8,
-                paddingHorizontal: 18,
-                // flex: 1,
-                width: '100%',
-                alignItems: 'flex-start',
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  console.log('onPress');
-                  navigation.goBack();
-                }}
-                style={{
-                  height: 30,
-
-                  borderWidth: 1,
-                  borderRadius: 4,
-
-                  backgroundColor: 'white',
-                  // width,
-                  // alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    borderRadius: 4,
-                    padding: 4,
-                    // width: '10%',
-                    color: '#277ffd',
-                  }}>
-                  Previous
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </SafeAreaView> */}
-
           {movies.map((item, index) => {
             if (!item.poster) {
               return <View style={{width: EMPTY_ITEM_SIZE}} />;
@@ -203,7 +203,7 @@ const MovieScreen = () => {
 
             const translateY = scrollX.interpolate({
               inputRange,
-              outputRange: [140, 100, 140],
+              outputRange: [160, 120, 160],
               extrapolate: 'clamp',
             });
 
@@ -259,6 +259,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   paragraph: {
     margin: 24,

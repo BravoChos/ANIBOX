@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const {width, height} = Dimensions.get('window');
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
-const BACKDROP_HEIGHT = height * 0.65;
+const BACKDROP_HEIGHT = height * 1;
 
 const Backdrop = ({movies, scrollX}) => {
   // if (movies.length === 0)
