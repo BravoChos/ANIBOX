@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
 import {width, height} from '../../styles';
@@ -19,6 +19,11 @@ import {RootStackParamList} from '../types';
 import Genres from '../../components/movie/Genres';
 import Rating from '../../components/movie/Rating';
 import Backdrop from '../../components/movie/Backdrop';
+
+// Todo
+// loading component
+// refactoring
+// typescript
 
 const genres = {
   12: 'Adventure',
@@ -126,17 +131,12 @@ const MovieScreen = () => {
         style={{
           position: 'absolute',
           zIndex: 2,
-          // width,
-          // backgroundColor: 'green',
-          // borderWidth: 1,
         }}>
         <View
           style={{
-            // position: 'absolute',
             zIndex: 2,
             paddingTop: 8,
             paddingHorizontal: 18,
-            // flex: 1,
             width: '100%',
             alignItems: 'flex-start',
           }}>
@@ -147,21 +147,13 @@ const MovieScreen = () => {
             }}
             style={{
               height: 30,
-
-              // borderWidth: 1,
               borderRadius: 4,
-
-              // backgroundColor: 'white',
-              // width,
-              // alignItems: 'center',
               justifyContent: 'center',
             }}>
             <Text
               style={{
                 borderRadius: 4,
                 padding: 4,
-                // width: '10%',
-                // color: '#277ffd',
                 color: 'white',
                 fontWeight: 'bold',
               }}>
@@ -173,8 +165,6 @@ const MovieScreen = () => {
       <Backdrop movies={movies} scrollX={scrollX} />
       <Animated.ScrollView
         showsHorizontalScrollIndicator={false}
-        // data={movies}
-        // keyExtractor={item => item.key}
         horizontal={true}
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
@@ -191,14 +181,15 @@ const MovieScreen = () => {
         <>
           {movies.map((item, index) => {
             if (!item.poster) {
-              return <View style={{width: EMPTY_ITEM_SIZE}} />;
+              return (
+                <View style={{width: EMPTY_ITEM_SIZE}} key={'movie' + index} />
+              );
             }
 
             const inputRange = [
               (index - 2) * ITEM_SIZE,
               (index - 1) * ITEM_SIZE,
               index * ITEM_SIZE,
-              // (index + 1) * ITEM_SIZE,
             ];
 
             const translateY = scrollX.interpolate({
@@ -208,7 +199,9 @@ const MovieScreen = () => {
             });
 
             return (
-              <View style={{width: ITEM_SIZE, height: '100%'}}>
+              <View
+                style={{width: ITEM_SIZE, height: '100%'}}
+                key={'movie' + index}>
                 <Animated.View
                   style={{
                     marginHorizontal: SPACING,
@@ -233,15 +226,6 @@ const MovieScreen = () => {
                 </Animated.View>
               </View>
             );
-
-            // return (
-            //   <View
-            //     style={{
-            //       width: 100,
-            //       height: 100,
-            //       backgroundColor: 'red',
-            //     }}></View>
-            // );
           })}
         </>
       </Animated.ScrollView>
