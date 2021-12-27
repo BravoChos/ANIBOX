@@ -20,3 +20,9 @@
 - dashboard
 - (Auth)
 -
+
+### Anibox #1 Movie animation
+
+feature
+troubleshooting
+what i have learned about

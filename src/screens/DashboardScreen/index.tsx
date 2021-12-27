@@ -18,6 +18,14 @@ const DashboardScreen = () => {
         }}>
         <Text>MovieScreen</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{marginVertical: 8, borderWidth: 1, padding: 4}}
+        onPress={() => {
+          console.log({navigation});
+          navigation.push('Words');
+        }}>
+        <Text>WordsScreen</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
