@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   Animated,
   Image,
@@ -9,115 +9,46 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import axios from 'axios';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
 import {width, height} from '../../styles';
-import {API_KEY} from '../../api/config';
 import {RootStackParamList} from '../types';
 import Genres from '../../components/movie/Genres';
 import Rating from '../../components/movie/Rating';
 import Backdrop from '../../components/movie/Backdrop';
-
-// Todo
-// loading component
-// refactoring
-// typescript
-
-const genres = {
-  12: 'Adventure',
-  14: 'Fantasy',
-  16: 'Animation',
-  18: 'Drama',
-  27: 'Horror',
-  28: 'Action',
-  35: 'Comedy',
-  36: 'History',
-  37: 'Western',
-  53: 'Thriller',
-  80: 'Crime',
-  99: 'Documentary',
-  878: 'Science Fiction',
-  9648: 'Mystery',
-  10402: 'Music',
-  10749: 'Romance',
-  10751: 'Family',
-  10752: 'War',
-  10770: 'TV Movie',
-};
-
-const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`;
-const getImagePath = (path: String) =>
-  `https://image.tmdb.org/t/p/w440_and_h660_face${path}`;
-const getBackdropPath = (path: String) =>
-  `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
+import {getMovies} from '../../api/movie';
 
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-interface movie {
+interface Movie {
   id: Number;
-  original_title: String;
-  poster_path: String;
-  backdrop_path: String;
-  vote_average: Number;
-  overview: String;
+  title: String;
+  poster: String;
+  backdrop: String;
+  rating: Number;
+  description: String;
   release_date: String;
-  genre_ids: [Number];
+  genres: [Number];
 }
-
-export const getMovies = async () => {
-  const {data, status, statusText} = await axios.get(API_URL);
-
-  if (!data?.results)
-    return {
-      status,
-      error: statusText,
-      data: null,
-    };
-
-  const movies = data.results.map(
-    ({
-      id,
-      original_title,
-      poster_path,
-      backdrop_path,
-      vote_average,
-      overview,
-      release_date,
-      genre_ids,
-    }: movie) => ({
-      key: String(id),
-      title: original_title,
-      poster: getImagePath(poster_path),
-      backdrop: getBackdropPath(backdrop_path),
-      rating: vote_average,
-      description: overview,
-      releaseDate: release_date,
-      genres: genre_ids.map((genre: Number) => genres[genre]),
-    }),
-  );
-
-  return movies;
-};
+type Movies = Movie[];
 
 const MovieScreen = () => {
   const navigation = useNavigation<RootStackParamList>();
   const scrollX = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    getMovies().then(r => {
-      console.log(r);
-    });
-  }, []);
 
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    getMovies().then(movies => {
-      if (movies?.length > 0) {
-        setMovies([{key: 'empty-left'}, ...movies, {key: 'empty-right'}]);
+    getMovies().then((fetchedMovies: Movies) => {
+      if (fetchedMovies?.length > 0) {
+        setMovies([
+          {title: 'empty-left'},
+          ...fetchedMovies,
+          {title: 'empty-right'},
+        ]);
       }
     });
   }, []);
@@ -127,38 +58,12 @@ const MovieScreen = () => {
       style={styles.container}
       nestedScrollEnabled={true}
       bounces={false}>
-      <SafeAreaView
-        style={{
-          position: 'absolute',
-          zIndex: 2,
-        }}>
-        <View
-          style={{
-            zIndex: 2,
-            paddingTop: 8,
-            paddingHorizontal: 18,
-            width: '100%',
-            alignItems: 'flex-start',
-          }}>
+      <SafeAreaView style={styles.header}>
+        <View style={styles.backBtnWrapper}>
           <TouchableOpacity
-            onPress={() => {
-              console.log('onPress');
-              navigation.goBack();
-            }}
-            style={{
-              height: 30,
-              borderRadius: 4,
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                borderRadius: 4,
-                padding: 4,
-                color: 'white',
-                fontWeight: 'bold',
-              }}>
-              Previous
-            </Text>
+            onPress={() => navigation.goBack()}
+            style={styles.textWrapper}>
+            <Text style={styles.textStyle}>Previous</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -169,7 +74,6 @@ const MovieScreen = () => {
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
         renderToHardwareTextureAndroid
-        contentContainerStyle={{alignItems: 'center'}}
         snapToInterval={ITEM_SIZE}
         snapToAlignment="start"
         onScroll={Animated.event(
@@ -199,28 +103,24 @@ const MovieScreen = () => {
             });
 
             return (
-              <View
-                style={{width: ITEM_SIZE, height: '100%'}}
-                key={'movie' + index}>
+              <View style={styles.cardContainer} key={'movie' + index}>
                 <Animated.View
-                  style={{
-                    marginHorizontal: SPACING,
-                    padding: SPACING * 2,
-                    alignItems: 'center',
-                    transform: [{translateY}],
-                    backgroundColor: 'white',
-                    borderRadius: 34,
-                  }}>
+                  style={[
+                    styles.cardInnderWrapper,
+                    {
+                      transform: [{translateY}],
+                    },
+                  ]}>
                   <Image
                     source={{uri: item.poster}}
                     style={styles.posterImage}
                   />
-                  <Text style={{fontSize: 24}} numberOfLines={1}>
+                  <Text style={styles.titleFontSize} numberOfLines={1}>
                     {item.title}
                   </Text>
                   <Rating rating={item.rating} />
                   <Genres genres={item.genres} />
-                  <Text style={{fontSize: 12}} numberOfLines={3}>
+                  <Text style={styles.descriptionFontSize} numberOfLines={2}>
                     {item.description}
                   </Text>
                 </Animated.View>
@@ -236,14 +136,37 @@ const MovieScreen = () => {
 export default MovieScreen;
 
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+
+  header: {
+    position: 'absolute',
+    zIndex: 2,
+  },
+  backBtnWrapper: {
+    zIndex: 2,
+    paddingTop: 8,
+    paddingHorizontal: 18,
+    width: '100%',
+    alignItems: 'flex-start',
+  },
+  textWrapper: {height: 30, borderRadius: 4, justifyContent: 'center'},
+  textStyle: {
+    borderRadius: 4,
+    padding: 4,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  cardContainer: {width: ITEM_SIZE, height: '100%'},
+  cardInnderWrapper: {
+    marginHorizontal: SPACING,
+    padding: SPACING * 2,
+    alignItems: 'center',
+    // transform: [{translateY}],
+    backgroundColor: 'white',
+    borderRadius: 34,
   },
   paragraph: {
     margin: 24,
@@ -259,4 +182,6 @@ const styles = StyleSheet.create({
     margin: 0,
     marginBottom: 10,
   },
+  titleFontSize: {fontSize: 24},
+  descriptionFontSize: {fontSize: 12},
 });
