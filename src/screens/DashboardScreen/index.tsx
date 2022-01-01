@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Transition, Transitioning} from 'react-native-reanimated';
@@ -7,18 +7,18 @@ import data from './data';
 
 import {RootStackParamList} from '../types';
 
-const transition = () => {
+const transition = (
   <Transition.Together>
     <Transition.In type="fade" durationMs={200} />
     <Transition.Change />
     <Transition.Out type="fade" durationMs={200} />
-  </Transition.Together>;
-};
+  </Transition.Together>
+);
 
 const DashboardScreen = () => {
   const navigation = useNavigation<RootStackParamList>();
-  const [currentIndex, setCurrentIndex] = React.useState(null);
-  const ref = React.useRef();
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const ref = useRef();
   return (
     <Transitioning.View
       ref={ref}
@@ -31,9 +31,10 @@ const DashboardScreen = () => {
             key={screen}
             onPress={() => {
               ref.current.animateNextTransition();
-
+              // setCurrentIndex(index === currentIndex ? null : index);
               if (index === currentIndex) {
                 navigation.push(screen);
+                setCurrentIndex(null);
               } else {
                 setCurrentIndex(index);
               }
@@ -45,7 +46,7 @@ const DashboardScreen = () => {
               {index === currentIndex && (
                 <View style={styles.subCategoriesList}>
                   <Text style={[styles.subtitle, {color}]}>{subTitle}</Text>
-                  {descriptions.map(description => (
+                  {descriptions?.map(description => (
                     <Text key={description} style={[styles.body, {color}]}>
                       {description}
                     </Text>
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textTransform: 'uppercase',
     letterSpacing: -2,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 20,
