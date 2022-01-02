@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -10,35 +10,26 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-// import {Transition, Transitioning} from 'react-native-reanimated';
+import {SharedElement} from 'react-navigation-shared-element';
 
 import vwcars from './vwcars';
-// import {spacing, theme} from './config/data/vwcars';
-import {SharedElement} from 'react-navigation-shared-element';
-// import {SharedElement} from 'react-navigation-shared-element/build/v4';
+import {RootStackParamList} from '../types';
+import {width} from '../../styles';
 
 const ITEM_SIZE = 120;
 const SPACING = 20;
 const BG_COLOR = '#C1CEE077';
 
-import {RootStackParamList} from '../types';
-
-import {height} from '../../styles';
-
 const CarList = () => {
   const navigation = useNavigation<RootStackParamList>();
-  //   const [currentIndex, setCurrentIndex] = useState(null);
-  //   const ref = useRef();
+
   return (
-    <View style={{flex: 1}}>
-      {/* <StatusBar hidden /> */}
-      {/* <Text>CarList</Text> */}
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <FlatList
         data={vwcars}
         keyExtractor={item => item.key}
         contentContainerStyle={{padding: SPACING}}
         renderItem={({item}) => {
-          console.log('test', item);
           return (
             <TouchableOpacity
               onPress={() => {
@@ -50,7 +41,12 @@ const CarList = () => {
                     <Text style={styles.model}>{item.model}</Text>
                   </SharedElement>
                   <SharedElement id={`item.${item.key}.description`}>
-                    <Text style={styles.description}>{item.description}</Text>
+                    <Text
+                      style={styles.description}
+                      numberOfLines={2}
+                      adjustsFontSizeToFit>
+                      {item.description}
+                    </Text>
                   </SharedElement>
                 </View>
                 <SharedElement
@@ -58,7 +54,6 @@ const CarList = () => {
                   style={styles.image}>
                   <Image
                     style={[
-                      // styles.image,
                       {
                         flex: 1,
                         resizeMode: 'center',
@@ -85,9 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING,
     padding: SPACING,
     backgroundColor: BG_COLOR,
-    // overflow: 'hidden',
     overflow: 'hidden',
-    // position: 'absolute',
   },
   model: {
     fontSize: 18,
@@ -107,6 +100,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: '-45%',
-    // resizeMode: 'center',
   },
 });

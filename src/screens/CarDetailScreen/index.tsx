@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {
   Text,
   StyleSheet,
@@ -10,18 +10,13 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, RouteProp, useRoute} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-
-import {width, SPACING} from '../../styles';
-import {colors, buttons} from '../DealCarScreen/vwcars';
-import RowButton from '../../components/common/RowButton';
-
-// import {
-// SharedElement,
-// SharedElementTransition,
-// nodeFromRef
-// } from 'react-navigation-shared-element';
 import {SharedElement} from 'react-navigation-shared-element';
 import * as Animatable from 'react-native-animatable';
+
+import RowButton from '../../components/common/RowButton';
+import {colors, buttons} from '../DealCarScreen/vwcars';
+import {width, SPACING} from '../../styles';
+
 const AnimatableScrollView = Animatable.createAnimatableComponent(ScrollView);
 
 const animation = {
@@ -29,30 +24,20 @@ const animation = {
   1: {opacity: 1, translateX: 0},
 };
 
-// const SPACING = 20;
-// const BG_COLOR = 'C1CEE077';
-
 import {RootStackParamList} from '../types';
-// import {ScrollView} from 'react-native-gesture-handler';
-// import RawButton from '../../components/common/RawButton';
 
 type CarDetailScreenRouteProp = RouteProp<RootStackParamList, 'CarDetail'>;
 
-// const CarDetail = ({navigation, route}) => {
 const CarDetailScreen = () => {
-  //   console.log(route);
   const navigation = useNavigation<RootStackParamList>();
   const route = useRoute<CarDetailScreenRouteProp>();
   const item = route?.params?.item;
 
-  //   const [currentIndex, setCurrentIndex] = useState(null);
-  //   const ref = useRef();
   return (
     <SafeAreaView
       style={{
-        // borderWidth: 1,
-        // borderColor: 'red',
         flex: 1,
+        backgroundColor: 'white',
       }}>
       <AntDesign
         name="close"
@@ -60,17 +45,14 @@ const CarDetailScreen = () => {
         style={{
           padding: 12,
           position: 'absolute',
-          //   top: SPACING * 2,
           right: 0,
           zIndex: 2,
-          //   borderWidth: 1,
         }}
         color={'#333'}
         onPress={() => {
           navigation.goBack();
         }}
       />
-      {/* <Image style={styles.image} source={{uri: item.image}} /> */}
       <SharedElement id={`item.${item.key}.image`}>
         <Image style={styles.image} source={{uri: item.image}} />
       </SharedElement>
@@ -85,6 +67,9 @@ const CarDetailScreen = () => {
         </SharedElement>
       </View>
       <AnimatableScrollView
+        useNativeDriver={true}
+        animation={animation}
+        delay={300}
         horizontal
         showsHorizontalScrollIndicator={false}
         style={{
@@ -93,9 +78,7 @@ const CarDetailScreen = () => {
           // marginVertical: SPACING
         }}
         contentContainerStyle={{
-          //   padding: SPACING,
           padding: 12,
-          // backgroundColor: 'red'
           //   marginVertical:SPACING
         }}>
         {colors.map(color => {
@@ -108,7 +91,11 @@ const CarDetailScreen = () => {
         })}
       </AnimatableScrollView>
       {buttons.map((text, index) => {
-        return <RowButton text={text} key={index} />;
+        return (
+          <Animatable.View key={index}>
+            <RowButton text={text} />
+          </Animatable.View>
+        );
       })}
     </SafeAreaView>
   );
@@ -119,7 +106,6 @@ const styles = StyleSheet.create({
     width: width * 1.8,
     height: width,
     resizeMode: 'contain',
-    // borderWidth: 1,
   },
   swatch: {
     width: 56,
@@ -130,11 +116,9 @@ const styles = StyleSheet.create({
   },
   meta: {
     position: 'absolute',
-    // top: SPACING * 4,
     top: SPACING,
     left: SPACING * 0.5,
     width: width * 0.6,
-    // borderWidth: 1,
   },
   model: {
     fontSize: 32,
@@ -143,40 +127,20 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
-    // fontWeight: '700',
     opacity: 0.7,
     position: 'absolute',
     top: 42 + SPACING / 2,
   },
 });
 
-CarDetailScreen.sharedElements = (route, otherRoute, showing) => {
+CarDetailScreen.sharedElements = route => {
   const {item} = route.params;
   console.log('sharedElements', route);
   return [
     {id: `item.${item.key}.image`},
     {id: `item.${item.key}.model`},
     {id: `item.${item.key}.description`},
-    // `item.${item.key}.image`,
-    // `item.${item.key}.model`,
-    // `item.${item.key}.description`,
   ];
 };
-// DetailScreen.sharedElements = (route, otherRoute, showing) => [
-//   {id: 'image'},
-//   {id: 'text', animation: 'fade'},
-// ];
-// CarDetailScreen.sharedElements = (navigation: any, otherRoute, showing) => {
-//   const item = navigation.getparam('item');
-//   console.log('sharedElements', item);
-//   return [
-//     // {id: `item.${item.key}.image`},
-//     // {id: `item.${item.key}.model`},
-//     // {id: `item.${item.key}.description`},
-//     `item.${item.key}.image`,
-//     `item.${item.key}.model`,
-//     `item.${item.key}.description`,
-//   ];
-// };
 
 export default CarDetailScreen;
