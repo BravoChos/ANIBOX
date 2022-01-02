@@ -1,11 +1,14 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import {RootStackParamList} from './types';
 import DashboardScreen from './DashboardScreen';
 import MovieScreen from './MovieScreen';
 import WordsScreen from './WordsScreen';
+import DealCarScreen from './DealCarScreen';
+import CarDetailScreen from './CarDetailScreen';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
 const RootStack = () => {
   return (
@@ -20,6 +23,8 @@ const RootStack = () => {
       />
       <Stack.Screen name="Movie" component={MovieScreen} />
       <Stack.Screen name="Words" component={WordsScreen} />
+      <Stack.Screen name="DealCar" component={DealCarScreen} />
+      <Stack.Screen name="CarDetail" component={CarDetailScreen} />
     </Stack.Navigator>
   );
 };
