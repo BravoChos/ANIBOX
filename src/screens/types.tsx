@@ -6,6 +6,9 @@ export type RootStackParamList = {
   Movie: undefined;
   Words: undefined;
   DealCar: undefined;
+  CarDetail: {
+    item: any;
+  };
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;

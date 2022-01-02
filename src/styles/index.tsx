@@ -1,4 +1,4 @@
 import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
-
-export {width, height};
+const SPACING = 8;
+export {width, height, SPACING};
