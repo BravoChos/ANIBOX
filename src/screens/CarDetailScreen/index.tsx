@@ -116,7 +116,7 @@ const CarDetailScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    width: width * 2.1,
+    width: width * 1.8,
     height: width,
     resizeMode: 'contain',
     // borderWidth: 1,
@@ -137,31 +137,35 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   model: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: '700',
+    position: 'absolute',
   },
   description: {
     fontSize: 12,
     // fontWeight: '700',
     opacity: 0.7,
     position: 'absolute',
-    // top: 32 + SPACING / 2,
+    top: 42 + SPACING / 2,
   },
 });
 
-// CarDetailScreen.sharedElements = (route, otherRoute, showing) => {
-//   const {item} = route.params;
-//   console.log('sharedElements', route);
-//   return [
-//     {id: `item.${item.key}.image`},
-//     {id: `item.${item.key}.model`},
-//     {id: `item.${item.key}.description`},
-//     // `item.${item.key}.image`,
-//     // `item.${item.key}.model`,
-//     // `item.${item.key}.description`,
-//   ];
-// };
-
+CarDetailScreen.sharedElements = (route, otherRoute, showing) => {
+  const {item} = route.params;
+  console.log('sharedElements', route);
+  return [
+    {id: `item.${item.key}.image`},
+    {id: `item.${item.key}.model`},
+    {id: `item.${item.key}.description`},
+    // `item.${item.key}.image`,
+    // `item.${item.key}.model`,
+    // `item.${item.key}.description`,
+  ];
+};
+// DetailScreen.sharedElements = (route, otherRoute, showing) => [
+//   {id: 'image'},
+//   {id: 'text', animation: 'fade'},
+// ];
 // CarDetailScreen.sharedElements = (navigation: any, otherRoute, showing) => {
 //   const item = navigation.getparam('item');
 //   console.log('sharedElements', item);

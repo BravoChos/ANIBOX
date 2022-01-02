@@ -8,7 +8,7 @@ import {
   View,
   Image,
 } from 'react-native';
-// import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 // import {Transition, Transitioning} from 'react-native-reanimated';
 
@@ -22,7 +22,7 @@ const SPACING = 20;
 const BG_COLOR = '#C1CEE077';
 
 import {RootStackParamList} from '../types';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
+
 import {height} from '../../styles';
 
 const CarList = () => {
@@ -53,16 +53,21 @@ const CarList = () => {
                     <Text style={styles.description}>{item.description}</Text>
                   </SharedElement>
                 </View>
+                <SharedElement
+                  id={`item.${item.key}.image`}
+                  style={styles.image}>
+                  <Image
+                    style={[
+                      // styles.image,
+                      {
+                        flex: 1,
+                        resizeMode: 'center',
+                      },
+                    ]}
+                    source={{uri: item.image}}
+                  />
+                </SharedElement>
               </View>
-              <SharedElement id={`item.${item.key}.image`} style={styles.image}>
-                <Image
-                  style={{
-                    flex: 1,
-                    resizeMode: 'center',
-                  }}
-                  source={{uri: item.image}}
-                />
-              </SharedElement>
             </TouchableOpacity>
           );
         }}
@@ -94,14 +99,14 @@ const styles = StyleSheet.create({
     // fontWeight: '700',
     opacity: 0.7,
     position: 'absolute',
-    top: (20 + SPACING) / 2,
+    top: 20 + SPACING / 2,
   },
   image: {
     height: ITEM_SIZE * 1.2,
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    right: '-40%',
+    right: '-45%',
     // resizeMode: 'center',
   },
 });
