@@ -31,16 +31,21 @@ export default [
     screen: 'DealCar',
     title: 'DealCar',
     subTitle: 'We will learn about how to..',
-    descriptions: ['Skincare', 'Makeup', 'Nail care', 'Perfume'],
+    descriptions: [
+      'use SharedElement component',
+      'transition between the screen',
+      'use React Native Animatable',
+      'create beautiful cars list',
+    ],
   },
   // {
   //   bg: '#193B8C',
   //   color: '#FECBCD',
-  //   title: 'ViewGall',
+  //   title: 'Gallery',
   // },
   // {
   //   bg: '#FDBD50',
   //   color: '#F5F5EB',
-  //   title: 'Homeware',
+  //   title: 'StickyFooter&Header',
   // },
 ];
