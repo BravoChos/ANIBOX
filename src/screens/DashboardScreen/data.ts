@@ -38,11 +38,19 @@ export default [
       'create beautiful cars list',
     ],
   },
-  // {
-  //   bg: '#193B8C',
-  //   color: '#FECBCD',
-  //   title: 'Gallery',
-  // },
+  {
+    bg: '#193B8C',
+    color: '#FECBCD',
+    screen: 'Gallery',
+    title: 'Gallery',
+    subTitle: 'We will learn about how to..',
+    descriptions: [
+      'use SharedElement component',
+      'transition between the screen',
+      'use React Native Animatable',
+      'create beautiful cars list',
+    ],
+  },
   // {
   //   bg: '#FDBD50',
   //   color: '#F5F5EB',

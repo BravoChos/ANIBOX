@@ -26,6 +26,7 @@ const DashboardScreen = () => {
       style={styles.container}>
       {/* <StatusBar hidden /> */}
       {data.map(({bg, color, title, subTitle, descriptions, screen}, index) => {
+        console.log(screen);
         return (
           <TouchableOpacity
             key={screen}

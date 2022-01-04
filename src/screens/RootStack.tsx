@@ -7,6 +7,7 @@ import MovieScreen from './MovieScreen';
 import WordsScreen from './WordsScreen';
 import DealCarScreen from './DealCarScreen';
 import CarDetailScreen from './CarDetailScreen';
+import GalleryScreen from './GalleryScreen';
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
@@ -25,6 +26,7 @@ const RootStack = () => {
       <Stack.Screen name="Words" component={WordsScreen} />
       <Stack.Screen name="DealCar" component={DealCarScreen} />
       <Stack.Screen name="CarDetail" component={CarDetailScreen} />
+      <Stack.Screen name="Gallery" component={GalleryScreen} />
     </Stack.Navigator>
   );
 };
