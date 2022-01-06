@@ -7,13 +7,15 @@ const API_URL =
   'https://api.pexels.com/v1/search?query=nature&orientation=portrait&size=small&per_page=20';
 
 import {getImagesFromPixcels} from '../../api/gallery';
+const ITEM_SIZE = 80;
+const SPACING = 10;
 
 const GalleryScreen = () => {
   const [images, setImages] = useState(null);
 
   useEffect(() => {
     getImagesFromPixcels().then(items => {
-      // console.log(items, 'sdfljsdhfkljhs');
+      console.log(items, 'sdfljsdhfkljhs');
       setImages(items);
     });
   }, []);
@@ -30,30 +32,60 @@ const GalleryScreen = () => {
     <View style={styles.container}>
       <StatusBar hidden />
       {images ? (
-        <FlatList
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          data={images}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => {
-            console.log(item?.src?.portrait, 1111);
-            // return <View></View>;
-            return (
-              <View style={{width, height}}>
+        <>
+          <FlatList
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            data={images}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => {
+              console.log(item?.src?.portrait, 1111);
+              // return <View></View>;
+              return (
+                <View style={{width, height}}>
+                  <Image
+                    source={{uri: item?.src?.portrait}}
+                    style={{
+                      // borderWidth: 1,
+                      // position: 'absolute',
+                      width,
+                      height,
+                    }}
+                  />
+                </View>
+              );
+            }}
+          />
+          <FlatList
+            horizontal
+            // pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            data={images}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={{paddingHorizontal: SPACING}}
+            style={{position: 'absolute', bottom: ITEM_SIZE}}
+            renderItem={({item}) => {
+              // console.log(item?.src?.portrait, 1111);
+              // return <View></View>;
+              return (
+                // <View style={{width, height}}>
                 <Image
                   source={{uri: item?.src?.portrait}}
                   style={{
                     // borderWidth: 1,
                     // position: 'absolute',
-                    width,
-                    height,
+                    width: ITEM_SIZE,
+                    height: ITEM_SIZE,
+                    borderRadius: 12,
+                    marginRight: SPACING,
                   }}
                 />
-              </View>
-            );
-          }}
-        />
+                // </View>
+              );
+            }}
+          />
+        </>
       ) : null}
     </View>
   );
