@@ -9,6 +9,7 @@ export type RootStackParamList = {
   CarDetail: {
     item: any;
   };
+  Gallery: undefined;
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;

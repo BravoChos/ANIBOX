@@ -19,7 +19,10 @@
   5. test library
 - dashboard
 - (Auth)
--
+- absolute path
+- implement typescript and styled component
+- refactring
+- test code setup
 
 ### Anibox #1 Movie animation
 

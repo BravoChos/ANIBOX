@@ -61,3 +61,4 @@ buck-out/
 
 # apikey
 src/api/config.js
+src/screens/GalleryScreen/config.js
