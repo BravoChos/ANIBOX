@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import Styled from 'styled-components/native';
 
-import BackHeader from '../../components/common/BackHeader';
-import Gallery from '../../components/gallery/Gallery';
-import {width} from '../../styles';
-import {getImagesFromPixcels} from '../../api/gallery';
+import BackHeader from '@anibox/components/common/BackHeader';
+import Gallery from '@anibox/components/gallery/Gallery';
+import {width} from '@anibox/styles';
+import {getImagesFromPixcels} from '@anibox/api/gallery';
 
 const IMAGE_SIZE = 60;
 const SPACING = 10;

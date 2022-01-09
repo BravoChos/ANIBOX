@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import {width, height} from '../../../styles';
+import {width, height} from '@anibox/styles';
 
 export default ({uri}: {uri: string}) => {
   return (

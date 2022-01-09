@@ -1,13 +1,13 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import {RootStackParamList} from '../../../screens/types';
+import {RootStackParamList} from '@anibox/screens/types';
 
 const BackHeader = ({absolute = false}) => {
   const navigation = useNavigation<RootStackParamList>();
-  console.log(absolute);
+  // console.log(absolute);
   return (
     <SafeAreaView
       style={[
@@ -23,10 +23,8 @@ const BackHeader = ({absolute = false}) => {
               elevation: 4,
             },
       ]}>
-      <View style={styles.backBtnWrapper}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.textWrapper}>
+      <View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" color="rgba(0,0,0,0.8)" size={24} />
         </TouchableOpacity>
       </View>
@@ -42,11 +40,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     width: '100%',
     justifyContent: 'center',
-  },
-  textStyle: {
-    borderRadius: 4,
-    padding: 4,
-    color: 'white',
-    fontWeight: 'bold',
   },
 });

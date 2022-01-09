@@ -12,12 +12,12 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
-import {width, height} from '../../styles';
-import {RootStackParamList} from '../types';
-import Genres from '../../components/movie/Genres';
-import Rating from '../../components/movie/Rating';
-import Backdrop from '../../components/movie/Backdrop';
-import {getMovies} from '../../api/movie';
+import {width, height} from '@anibox/styles';
+import {RootStackParamList} from '@anibox/screens/types';
+import Genres from '@anibox/components/movie/Genres';
+import Rating from '@anibox/components/movie/Rating';
+import Backdrop from '@anibox/components/movie/Backdrop';
+import {getMovies} from '@anibox/api/movie';
 
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;

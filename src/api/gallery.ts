@@ -1,8 +1,8 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 import {API_KEY_PIXEL} from './config';
-import {width, height} from '../styles';
-import {Movie} from './types';
+import {width, height} from '@anibox/styles';
+// import {Movie} from './types';
 // Authorization: YOUR_API_KEY
 const API_URL =
   'https://api.pexels.com/v1/search?query=nature&orientation=portrait&size=small&per_page=20';
@@ -13,9 +13,9 @@ const API_URL =
 // const getBackdropPath = (path: String) =>
 //   `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
 
-const SPACING = 10;
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
-const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
+// const SPACING = 10;
+// const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
+// const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
 export const getImagesFromPixcels = async () => {
   const {data, status, statusText} = await axios.get(API_URL, {

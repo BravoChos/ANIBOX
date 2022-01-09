@@ -13,8 +13,8 @@ import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-navigation-shared-element';
 
 import vwcars from './vwcars';
-import {RootStackParamList} from '../types';
-import {width} from '../../styles';
+import {RootStackParamList} from '@anibox/screens/types';
+// import {width} from '../../styles';
 
 const ITEM_SIZE = 120;
 const SPACING = 20;

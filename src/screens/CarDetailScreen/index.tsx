@@ -13,9 +13,9 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {SharedElement} from 'react-navigation-shared-element';
 import * as Animatable from 'react-native-animatable';
 
-import RowButton from '../../components/common/RowButton';
-import {colors, buttons} from '../DealCarScreen/vwcars';
-import {width, SPACING} from '../../styles';
+import RowButton from '@anibox/components/common/RowButton';
+import {colors, buttons} from '@anibox/screens/DealCarScreen/vwcars';
+import {width, SPACING} from '@anibox/styles';
 
 const AnimatableScrollView = Animatable.createAnimatableComponent(ScrollView);
 

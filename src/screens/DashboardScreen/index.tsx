@@ -5,7 +5,7 @@ import {Transition, Transitioning} from 'react-native-reanimated';
 
 import data from './data';
 
-import {RootStackParamList} from '../types';
+import {RootStackParamList} from '@anibox/screens/types';
 
 const transition = (
   <Transition.Together>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {StatusBar, View, StyleSheet} from 'react-native';
 
 import CarList from './CarList';
-import BackHeader from '../../components/common/BackHeader';
+import BackHeader from '@anibox/components/common/BackHeader';
 
 const DealCarScreen = () => {
   return (
