@@ -17,6 +17,7 @@ import {RootStackParamList} from '@anibox/screens/types';
 import Genres from '@anibox/components/movie/Genres';
 import Rating from '@anibox/components/movie/Rating';
 import Backdrop from '@anibox/components/movie/Backdrop';
+import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
 import {getMovies} from '@anibox/api/movie';
 
 const SPACING = 10;
@@ -52,6 +53,10 @@ const MovieScreen = () => {
       }
     });
   }, []);
+
+  if (movies?.length === 0) {
+    return <LoadingIndicator size={100} />;
+  }
 
   return (
     <ScrollView

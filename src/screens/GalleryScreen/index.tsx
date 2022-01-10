@@ -12,6 +12,7 @@ import Styled from 'styled-components/native';
 
 import BackHeader from '@anibox/components/common/BackHeader';
 import Gallery from '@anibox/components/gallery/Gallery';
+import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
 import {width} from '@anibox/styles';
 import {getImagesFromPixcels} from '@anibox/api/gallery';
 
@@ -62,11 +63,7 @@ const GalleryScreen = () => {
   };
 
   if (!images) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <LoadingIndicator size={100} />;
   }
 
   return (
