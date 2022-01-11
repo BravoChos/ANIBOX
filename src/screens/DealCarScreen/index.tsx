@@ -8,7 +8,6 @@ const DealCarScreen = () => {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      {/* <Text>DealCarScreen</Text> */}
       <BackHeader />
       <CarList />
     </View>

@@ -18,51 +18,24 @@ import Genres from '@anibox/components/movie/Genres';
 import Rating from '@anibox/components/movie/Rating';
 import Backdrop from '@anibox/components/movie/Backdrop';
 import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
-import {getMovies} from '@anibox/api/movie';
+import {useMoviesFromTMDB, useSetTimeout} from '@anibox/hooks';
 
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-interface Movie {
-  id: Number;
-  title: String;
-  poster: String;
-  backdrop: String;
-  rating: Number;
-  description: String;
-  release_date: String;
-  genres: [Number];
-}
-type Movies = Movie[];
-
 const MovieScreen = () => {
   const navigation = useNavigation<RootStackParamList>();
   const scrollX = useRef(new Animated.Value(0)).current;
-
-  const [movies, setMovies] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    getMovies().then((fetchedMovies: Movies) => {
-      if (fetchedMovies?.length > 0) {
-        setMovies([
-          {title: 'empty-left'},
-          ...fetchedMovies,
-          {title: 'empty-right'},
-        ]);
-      }
-    });
-  }, []);
-
-  if (movies?.length === 0) {
-    return <LoadingIndicator size={100} />;
-  }
+  const movies = useMoviesFromTMDB();
+  const loading = useSetTimeout(1500);
 
   return (
     <ScrollView
       style={styles.container}
       nestedScrollEnabled={true}
       bounces={false}>
+      {(loading || movies?.length === 0) && <LoadingIndicator size={100} />}
       <SafeAreaView style={styles.header}>
         <View style={styles.backBtnWrapper}>
           <TouchableOpacity
