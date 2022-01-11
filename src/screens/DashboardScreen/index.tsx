@@ -7,7 +7,7 @@ import {Transition, Transitioning} from 'react-native-reanimated';
 import data from './data';
 
 import {RootStackParamList} from '@anibox/screens/types';
-import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
+// import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
 
 const transition = (
   <Transition.Together>

@@ -32,10 +32,10 @@ export default [
     title: 'DealCar',
     subTitle: 'We will learn about how to..',
     descriptions: [
-      'use SharedElement component',
-      'transition between the screen',
-      'use React Native Animatable',
-      'create beautiful cars list',
+      '- use SharedElement component',
+      '- transition between the screen',
+      '- use React Native Animatable',
+      '- create beautiful cars list',
     ],
   },
   {
@@ -45,10 +45,10 @@ export default [
     title: 'Gallery',
     subTitle: 'We will learn about how to..',
     descriptions: [
-      'use SharedElement component',
-      'transition between the screen',
-      'use React Native Animatable',
-      'create beautiful cars list',
+      '- sync 2 FlatLists',
+      '- get the active carousel slide index',
+      '- use scrollToOffset',
+      '- link the two animated FlatList',
     ],
   },
   // {

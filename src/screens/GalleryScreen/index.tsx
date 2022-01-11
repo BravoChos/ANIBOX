@@ -1,20 +1,12 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {
-  StatusBar,
-  Text,
-  FlatList,
-  Image,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Styled from 'styled-components/native';
 
 import BackHeader from '@anibox/components/common/BackHeader';
 import Gallery from '@anibox/components/gallery/Gallery';
 import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
+import {useImagesFromPixcel} from '@anibox/hooks';
 import {width} from '@anibox/styles';
-import {getImagesFromPixcels} from '@anibox/api/gallery';
 
 const IMAGE_SIZE = 60;
 const SPACING = 10;
@@ -30,13 +22,7 @@ const StyledFlatList = Styled.FlatList`
 `;
 
 const GalleryScreen = () => {
-  const [images, setImages] = useState(null);
-
-  useEffect(() => {
-    getImagesFromPixcels().then(items => {
-      setImages(items);
-    });
-  }, []);
+  const images = useImagesFromPixcel();
 
   const topRef = useRef();
   const thumbRef = useRef();
@@ -68,7 +54,6 @@ const GalleryScreen = () => {
 
   return (
     <Container>
-      {/* <StatusBar hidden /> */}
       <BackHeader absolute={true} />
       <FlatList
         ref={topRef}
