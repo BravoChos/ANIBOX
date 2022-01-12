@@ -23,7 +23,7 @@ export const getImagesFromPixcels = async () => {
       Authorization: API_KEY_PIXEL,
     },
   });
-  console.log({data}, 'getImagesFromPixcels');
+  // console.log({data}, 'getImagesFromPixcels');
 
   if (!data?.page)
     return {

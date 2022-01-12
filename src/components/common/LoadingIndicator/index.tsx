@@ -6,7 +6,7 @@ import {MotiView} from 'moti';
 import {width, height} from '@anibox/styles';
 
 export default ({size}: {size: number}) => {
-  console.log(size, 'hello');
+  // console.log(size, 'hello');
   return (
     <View
       style={{

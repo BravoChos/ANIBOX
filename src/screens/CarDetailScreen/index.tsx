@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 
 CarDetailScreen.sharedElements = route => {
   const {item} = route.params;
-  console.log('sharedElements', route);
+  // console.log('sharedElements', route);
   return [
     {id: `item.${item.key}.image`},
     {id: `item.${item.key}.model`},
