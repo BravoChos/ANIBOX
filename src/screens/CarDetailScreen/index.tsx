@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  ScrollView,
-  //   SafeAreaView,
-} from 'react-native';
+import {Text, StyleSheet, View, Image, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, RouteProp, useRoute} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -34,20 +27,11 @@ const CarDetailScreen = () => {
   const item = route?.params?.item;
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}>
+    <SafeAreaView style={styles.container}>
       <AntDesign
         name="close"
         size={28}
-        style={{
-          padding: 12,
-          position: 'absolute',
-          right: 0,
-          zIndex: 2,
-        }}
+        style={styles.icon}
         color={'#333'}
         onPress={() => {
           navigation.goBack();
@@ -102,6 +86,16 @@ const CarDetailScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  icon: {
+    padding: 12,
+    position: 'absolute',
+    right: 0,
+    zIndex: 2,
+  },
   image: {
     width: width * 1.8,
     height: width,
