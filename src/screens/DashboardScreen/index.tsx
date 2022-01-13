@@ -2,12 +2,9 @@ import React, {useRef, useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Transition, Transitioning} from 'react-native-reanimated';
-// import 'react-native-gesture-handler';
 
 import data from './data';
-
 import {RootStackParamList} from '@anibox/screens/types';
-// import LoadingIndicator from '@anibox/components/common/LoadingIndicator';
 
 const transition = (
   <Transition.Together>
@@ -26,8 +23,6 @@ const DashboardScreen = () => {
       ref={ref}
       transition={transition}
       style={styles.container}>
-      {/* <StatusBar hidden /> */}
-      {/* <LoadingIndicator size={100} /> */}
       {data.map(({bg, color, title, subTitle, descriptions, screen}, index) => {
         // console.log(screen);
         return (
@@ -35,7 +30,7 @@ const DashboardScreen = () => {
             key={screen}
             onPress={() => {
               ref.current.animateNextTransition();
-              // setCurrentIndex(index === currentIndex ? null : index);
+
               if (index === currentIndex) {
                 navigation.push(screen);
                 setCurrentIndex(null);
@@ -101,6 +96,5 @@ const styles = StyleSheet.create({
   },
   subCategoriesList: {
     marginTop: 20,
-    // height: 500,
   },
 });
