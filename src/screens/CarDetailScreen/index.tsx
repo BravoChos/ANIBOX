@@ -17,12 +17,12 @@ const animation = {
   1: {opacity: 1, translateX: 0},
 };
 
-import {RootStackParamList} from '../types';
+import {RootStackParamList, CarDetailScreenParmaList} from '../types';
 
 type CarDetailScreenRouteProp = RouteProp<RootStackParamList, 'CarDetail'>;
 
 const CarDetailScreen = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<CarDetailScreenParmaList>();
   const route = useRoute<CarDetailScreenRouteProp>();
   const item = route?.params?.item;
 
