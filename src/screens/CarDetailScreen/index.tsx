@@ -56,15 +56,8 @@ const CarDetailScreen = () => {
         delay={300}
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{
-          flexGrow: 0,
-          marginVertical: 8,
-          // marginVertical: SPACING
-        }}
-        contentContainerStyle={{
-          padding: 12,
-          //   marginVertical:SPACING
-        }}>
+        style={styles.scrollViewStyle}
+        contentContainerStyle={styles.scrollViewContainerStyle}>
         {colors.map(color => {
           return (
             <View
@@ -105,7 +98,6 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
-    // marginRight: SPACING,
     marginRight: 12,
   },
   meta: {
@@ -125,11 +117,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 42 + SPACING / 2,
   },
+  scrollViewStyle: {
+    flexGrow: 0,
+    marginVertical: 8,
+  },
+  scrollViewContainerStyle: {
+    padding: 12,
+  },
 });
 
 CarDetailScreen.sharedElements = route => {
   const {item} = route.params;
-  // console.log('sharedElements', route);
   return [
     {id: `item.${item.key}.image`},
     {id: `item.${item.key}.model`},

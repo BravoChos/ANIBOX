@@ -5,8 +5,7 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
 const SPACING = 8;
 
-export default ({text, onPress}) => {
-  // console.log(text);
+export default ({text, onPress}: {text: string; onPress?: () => void}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View
@@ -24,6 +23,3 @@ export default ({text, onPress}) => {
     </TouchableOpacity>
   );
 };
-{
-  /* <ArrowRightOutlined /> */
-}
