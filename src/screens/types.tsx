@@ -18,7 +18,7 @@ export type RootStackNavigationProp =
 
 type StackParamList = {};
 
-export type CarDetailScreenParmaList = CompositeNavigationProp<
+export type RootCombinedStackNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList>,
   StackNavigationProp<StackParamList>
 >;

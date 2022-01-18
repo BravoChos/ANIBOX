@@ -17,12 +17,15 @@ const animation = {
   1: {opacity: 1, translateX: 0},
 };
 
-import {RootStackParamList, CarDetailScreenParmaList} from '../types';
+import {
+  RootStackParamList,
+  RootCombinedStackNavigationProp,
+} from '@anibox/types';
 
 type CarDetailScreenRouteProp = RouteProp<RootStackParamList, 'CarDetail'>;
 
 const CarDetailScreen = () => {
-  const navigation = useNavigation<CarDetailScreenParmaList>();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
   const route = useRoute<CarDetailScreenRouteProp>();
   const item = route?.params?.item;
 

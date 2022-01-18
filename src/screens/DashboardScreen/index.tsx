@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Transition, Transitioning} from 'react-native-reanimated';
 
 import data from './data';
-import {RootStackParamList} from '@anibox/screens/types';
+import {RootCombinedStackNavigationProp} from '@anibox/screens/types';
 
 const transition = (
   <Transition.Together>
@@ -15,23 +15,24 @@ const transition = (
 );
 
 const DashboardScreen = () => {
-  const navigation = useNavigation<RootStackParamList>();
-  const [currentIndex, setCurrentIndex] = useState(null);
-  const ref = useRef();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const ref = useRef<TransitioningView | null>();
+
   return (
     <Transitioning.View
       ref={ref}
       transition={transition}
       style={styles.container}>
       {data.map(({bg, color, title, subTitle, descriptions, screen}, index) => {
-        // console.log(screen);
+        console.log({screen});
         return (
           <TouchableOpacity
             key={screen}
             onPress={() => {
-              ref.current.animateNextTransition();
-
+              ref.current?.animateNextTransition();
               if (index === currentIndex) {
+                // @ts-ignore
                 navigation.push(screen);
                 setCurrentIndex(null);
               } else {
