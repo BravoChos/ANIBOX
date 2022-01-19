@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  // SafeAreaView,
   FlatList,
   View,
   Image,
@@ -13,14 +12,14 @@ import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-navigation-shared-element';
 
 import vwcars from './vwcars';
-import {RootStackParamList} from '@anibox/screens/types';
+import {RootCombinedStackNavigationProp} from '@anibox/types';
 
 const ITEM_SIZE = 120;
 const SPACING = 20;
 const BG_COLOR = '#C1CEE077';
 
 const CarList = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
