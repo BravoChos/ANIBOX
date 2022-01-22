@@ -1,13 +1,7 @@
 import * as React from 'react';
-import {
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from 'react-native';
+import {StatusBar, View, StyleSheet} from 'react-native';
 
-import TextAnimator from '../../components/words/TextAnimator';
+import TextAnimator from '@anibox/components/words/TextAnimator';
 
 const WordsScreen = () => {
   const _onFinish = () => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useRef} from 'react';
 import {
   Animated,
   Image,
@@ -13,7 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
 import {width, height} from '@anibox/styles';
-import {RootStackParamList} from '@anibox/screens/types';
+import {RootCombinedStackNavigationProp} from '@anibox/types';
 import Genres from '@anibox/components/movie/Genres';
 import Rating from '@anibox/components/movie/Rating';
 import Backdrop from '@anibox/components/movie/Backdrop';
@@ -25,7 +25,7 @@ const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
 const MovieScreen = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
   const scrollX = useRef(new Animated.Value(0)).current;
   const movies = useMoviesFromTMDB();
   const loading = useSetTimeout(1500);

@@ -1,7 +1,6 @@
 import React from 'react';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
-import {RootStackParamList} from './types';
+import {RootStackParamList} from '@anibox/types';
 import DashboardScreen from './DashboardScreen';
 import MovieScreen from './MovieScreen';
 import WordsScreen from './WordsScreen';
@@ -17,11 +16,7 @@ const RootStack = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen
-        name="Dashboard"
-        component={DashboardScreen}
-        // options={{title: 'Homes'}}
-      />
+      <Stack.Screen name="Dashboard" component={DashboardScreen} />
       <Stack.Screen name="Movie" component={MovieScreen} />
       <Stack.Screen name="Words" component={WordsScreen} />
       <Stack.Screen name="DealCar" component={DealCarScreen} />
