@@ -90,7 +90,7 @@ const MovieScreen = () => {
                     },
                   ]}>
                   <Image
-                    source={{uri: item.poster}}
+                    source={{uri: item.poster} as any}
                     style={styles.posterImage}
                   />
                   <Text style={styles.titleFontSize} numberOfLines={1}>
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     marginHorizontal: SPACING,
     padding: SPACING * 2,
     alignItems: 'center',
-    // transform: [{translateY}],
     backgroundColor: 'white',
     borderRadius: 34,
   },

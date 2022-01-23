@@ -3,11 +3,11 @@ import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import {RootStackParamList} from '@anibox/screens/types';
+import {RootStackParamList} from '@anibox/types';
 
 const BackHeader = ({absolute = false}) => {
   const navigation = useNavigation<RootStackParamList>();
-  // console.log(absolute);
+  console.log(absolute);
   return (
     <SafeAreaView
       style={[

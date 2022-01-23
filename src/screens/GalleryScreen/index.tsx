@@ -15,17 +15,11 @@ const Container = Styled.View`
   flex: 1;
 `;
 
-const StyledFlatList = Styled.FlatList`
-  position: absolute;
-  bottom: 40px;
-  padding: 0px ${SPACING}px;
-`;
-
 const GalleryScreen = () => {
   const images = useImagesFromPixcel();
 
-  const topRef = useRef();
-  const thumbRef = useRef();
+  const topRef = useRef<FlatList>(null);
+  const thumbRef = useRef<FlatList>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const scrollToActiveIndex = index => {
@@ -67,35 +61,38 @@ const GalleryScreen = () => {
         }}
         data={images}
         keyExtractor={item => item.id.toString()}
-        renderItem={({item, index}) => <Gallery uri={item?.src?.portrait} />}
+        renderItem={({item}) => <Gallery uri={item?.src?.portrait} />}
       />
-      <StyledFlatList
+      <FlatList
         ref={thumbRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={images}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item: {id: number; src: {portrait: string}}) =>
+          item.id.toString()
+        }
         renderItem={({item, index}) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
               <Image
                 source={{uri: item?.src?.portrait}}
-                style={[
-                  styles.image,
-                  {
-                    borderColor: activeIndex === index ? '#fff' : 'transparent',
-                  },
-                ]}
+                style={[styles.image, activeStyles(index, activeIndex).image]}
               />
             </TouchableOpacity>
           );
         }}
+        style={styles.wrapper}
       />
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: 'absolute',
+    bottom: 40,
+    paddingHorizontal: SPACING,
+  },
   image: {
     width: IMAGE_SIZE,
     height: IMAGE_SIZE,
@@ -104,4 +101,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 });
+
+const activeStyles = (activeIndex, index) =>
+  StyleSheet.create({
+    image: {
+      borderColor: activeIndex === index ? '#fff' : 'transparent',
+    },
+  });
+
 export default GalleryScreen;
