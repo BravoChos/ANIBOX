@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 export default function Genres({genres}) {
   return (
     <View style={styles.genres}>
-      {genres.map((genre, i) => {
+      {genres.map(genre => {
         return (
           <View key={genre} style={styles.genre}>
             <Text style={styles.genreText}>{genre}</Text>

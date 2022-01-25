@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-// import {AntDesign} from '@expo/vector-icons';
 
 export default function Rating({rating}) {
   const filledStars = Math.floor(rating / 2);
@@ -11,7 +10,6 @@ export default function Rating({rating}) {
     <View style={styles.rating}>
       <Text style={styles.ratingNumber}>{rating}</Text>
       {r.map((type, index) => {
-        // return <AntDesign key={index} name={type} size={12} color="tomato" />;
         return <View key={index} />;
       })}
     </View>
