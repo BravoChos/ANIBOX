@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet, Animated} from 'react-native';
+import {TouchableOpacity, View, StyleSheet, Animated} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import {RootStackParamList} from '../../../screens/types';
-const TextAnimator = ({content, duration, onFinish, style, textStyle}) => {
-  const navigation = useNavigation<RootStackParamList>();
-  let animatedValues: [] = [];
+import {RootCombinedStackNavigationProp} from '@anibox/types';
+const TextAnimator = ({content, duration, style, textStyle}) => {
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
+  let animatedValues: any[] = [];
   let animatedFooterValue = new Animated.Value(0);
 
   const textArr = content.trim().split('\n');

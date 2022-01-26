@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  ScrollView,
-  //   SafeAreaView,
-} from 'react-native';
+import {Text, StyleSheet, View, Image, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, RouteProp, useRoute} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -24,30 +17,24 @@ const animation = {
   1: {opacity: 1, translateX: 0},
 };
 
-import {RootStackParamList} from '../types';
+import {
+  RootStackParamList,
+  RootCombinedStackNavigationProp,
+} from '@anibox/types';
 
 type CarDetailScreenRouteProp = RouteProp<RootStackParamList, 'CarDetail'>;
 
 const CarDetailScreen = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
   const route = useRoute<CarDetailScreenRouteProp>();
   const item = route?.params?.item;
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}>
+    <SafeAreaView style={styles.container}>
       <AntDesign
         name="close"
         size={28}
-        style={{
-          padding: 12,
-          position: 'absolute',
-          right: 0,
-          zIndex: 2,
-        }}
+        style={styles.icon}
         color={'#333'}
         onPress={() => {
           navigation.goBack();
@@ -72,15 +59,8 @@ const CarDetailScreen = () => {
         delay={300}
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{
-          flexGrow: 0,
-          marginVertical: 8,
-          // marginVertical: SPACING
-        }}
-        contentContainerStyle={{
-          padding: 12,
-          //   marginVertical:SPACING
-        }}>
+        style={styles.scrollViewStyle}
+        contentContainerStyle={styles.scrollViewContainerStyle}>
         {colors.map(color => {
           return (
             <View
@@ -102,6 +82,16 @@ const CarDetailScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  icon: {
+    padding: 12,
+    position: 'absolute',
+    right: 0,
+    zIndex: 2,
+  },
   image: {
     width: width * 1.8,
     height: width,
@@ -111,7 +101,6 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
-    // marginRight: SPACING,
     marginRight: 12,
   },
   meta: {
@@ -131,11 +120,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 42 + SPACING / 2,
   },
+  scrollViewStyle: {
+    flexGrow: 0,
+    marginVertical: 8,
+  },
+  scrollViewContainerStyle: {
+    padding: 12,
+  },
 });
 
 CarDetailScreen.sharedElements = route => {
   const {item} = route.params;
-  // console.log('sharedElements', route);
   return [
     {id: `item.${item.key}.image`},
     {id: `item.${item.key}.model`},

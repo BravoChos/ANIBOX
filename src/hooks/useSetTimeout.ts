@@ -9,7 +9,7 @@ const resolveAfterXSeconds = (timeinterval: number) => {
 };
 
 export const useSetTimeout = (timeinterval: number = 2000) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     resolveAfterXSeconds(timeinterval).then(() => setLoading(false));

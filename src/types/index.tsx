@@ -1,4 +1,6 @@
+import {CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 /* RootStack */
 export type RootStackParamList = {
@@ -13,3 +15,10 @@ export type RootStackParamList = {
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
+
+type StackParamList = {};
+
+export type RootCombinedStackNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<RootStackParamList>,
+  StackNavigationProp<StackParamList>
+>;

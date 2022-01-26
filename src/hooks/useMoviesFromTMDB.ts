@@ -21,8 +21,11 @@ export const useMoviesFromTMDB = () => {
     getMovies().then((fetchedMovies: Movies) => {
       if (fetchedMovies?.length > 0) {
         setMovies([
+          //@ts-ignore
           {title: 'empty-left'},
+          //@ts-ignore
           ...fetchedMovies,
+          //@ts-ignore
           {title: 'empty-right'},
         ]);
       }

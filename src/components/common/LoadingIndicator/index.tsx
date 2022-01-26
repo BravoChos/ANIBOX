@@ -7,6 +7,9 @@ import {width, height} from '@anibox/styles';
 
 export default ({size}: {size: number}) => {
   // console.log(size, 'hello');
+
+  // having issue with moti and react antive animated..
+  return null;
   return (
     <View
       style={{

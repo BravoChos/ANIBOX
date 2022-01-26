@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  // SafeAreaView,
   FlatList,
   View,
   Image,
@@ -13,17 +12,17 @@ import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-navigation-shared-element';
 
 import vwcars from './vwcars';
-import {RootStackParamList} from '@anibox/screens/types';
+import {RootCombinedStackNavigationProp} from '@anibox/types';
 
 const ITEM_SIZE = 120;
 const SPACING = 20;
 const BG_COLOR = '#C1CEE077';
 
 const CarList = () => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<RootCombinedStackNavigationProp>();
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={styles.container}>
       <FlatList
         data={vwcars}
         keyExtractor={item => item.key}
@@ -52,12 +51,7 @@ const CarList = () => {
                   id={`item.${item.key}.image`}
                   style={styles.image}>
                   <Image
-                    style={[
-                      {
-                        flex: 1,
-                        resizeMode: 'center',
-                      },
-                    ]}
+                    style={[styles.imageSize]}
                     source={{uri: item.image}}
                   />
                 </SharedElement>
@@ -73,6 +67,7 @@ const CarList = () => {
 export default CarList;
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: 'white'},
   item: {
     height: ITEM_SIZE,
     borderRadius: 12,
@@ -88,7 +83,6 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
-    // fontWeight: '700',
     opacity: 0.7,
     position: 'absolute',
     top: 20 + SPACING / 2,
@@ -99,5 +93,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: '-45%',
+  },
+  imageSize: {
+    flex: 1,
+    resizeMode: 'center',
   },
 });

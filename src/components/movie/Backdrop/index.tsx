@@ -6,6 +6,7 @@ import {
   Image,
   Platform,
   View,
+  StyleSheet,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -15,7 +16,7 @@ const BACKDROP_HEIGHT = height * 1;
 
 const Backdrop = ({movies, scrollX}) => {
   return (
-    <View style={{height: BACKDROP_HEIGHT, width, position: 'absolute'}}>
+    <View style={styles.container}>
       <ScrollView
         removeClippedSubviews={false}
         contentContainerStyle={{width, height: BACKDROP_HEIGHT}}>
@@ -31,37 +32,44 @@ const Backdrop = ({movies, scrollX}) => {
           return (
             <Animated.View
               removeClippedSubviews={false}
-              style={{
-                position: 'absolute',
-                width: translateX,
-                height,
-                overflow: 'hidden',
-              }}
+              style={backDropStyles(translateX).imageWrapper}
               key={'backdrop' + index}>
-              <Image
-                source={{uri: item.backdrop}}
-                style={{
-                  width,
-                  height: BACKDROP_HEIGHT,
-
-                  position: 'absolute',
-                }}
-              />
+              <Image source={{uri: item.backdrop}} style={styles.imageStyle} />
             </Animated.View>
           );
         })}
       </ScrollView>
       <LinearGradient
         colors={['rgba(0, 0, 0, 0)', 'white']}
-        style={{
-          height: BACKDROP_HEIGHT,
-          width,
-          position: 'absolute',
-          bottom: 0,
-        }}
+        style={styles.gradientStyle}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {height: BACKDROP_HEIGHT, width, position: 'absolute'},
+  imageStyle: {
+    width,
+    height: BACKDROP_HEIGHT,
+    position: 'absolute',
+  },
+  gradientStyle: {
+    height: BACKDROP_HEIGHT,
+    width,
+    position: 'absolute',
+    bottom: 0,
+  },
+});
+
+const backDropStyles = translateX =>
+  StyleSheet.create({
+    imageWrapper: {
+      position: 'absolute',
+      width: translateX,
+      height,
+      overflow: 'hidden',
+    },
+  });
 
 export default Backdrop;
