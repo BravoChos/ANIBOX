@@ -10,17 +10,20 @@ This is a simple React Native app to find out what react native animated is. Thr
 
 I hope you enjoy just as I did. Happy Coding!
 
-## Stack and Library
+## Stacks
 
-React Native, Typescript,...
+React Native, Typescript
 
 <br/>
 
 ## Chapters (TBC..)
 
-### Anibox #1 Fox Office
+### Anibox #0 Accordion Menu
 
-Keypoints
+create an accordion animation using React Native Reanimated library.
+refer to then source code in /src/screens/DashboardScreen.
+
+### Anibox #1 Fox Office
 
 ### Anibox #2 Animated Sentence
 
@@ -28,27 +31,9 @@ Keypoints
 
 ### Anibox #4 Gallery
 
+### Anibox #5 Loading bar (currently not available)
+
 <br/>
-
-## CheckList
-
-- intial setup
-  1. typscript
-  2. react-navigation, styled-component
-     => fix landscape
-  3. basic structure
-  4. redux,...
-  5. test library
-- dashboard
-- absolute path
-- implement typescript and styled component
-- refactring
-- test code setup
-- server?
-
-## troubleshooting
-
-## what i have learned about
 
 ## Reference
 

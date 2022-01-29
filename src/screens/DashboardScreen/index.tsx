@@ -25,7 +25,7 @@ const DashboardScreen = () => {
       transition={transition}
       style={styles.container}>
       {data.map(({bg, color, title, subTitle, descriptions, screen}, index) => {
-        console.log({screen});
+        // console.log({screen});
         return (
           <TouchableOpacity
             key={screen}
